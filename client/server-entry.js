@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react';
 
-import App from "./App.jsx";
+import App from './views/App';
 
 export default <App />

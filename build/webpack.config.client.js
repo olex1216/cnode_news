@@ -1,60 +1,23 @@
 const path = require('path')
 const HTMLPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const webpackMerge = require('webpack-merge')
+const baseConfig = require('./webpack.config.base')
 const isDev = process.env.NODE_ENV === 'development';
 
-const config  = {
+const config  = webpackMerge(baseConfig,{
 	entry:{
 		app: path.join(__dirname,'../client/app.js')
 	},
 	output:{
 		filename: '[name].[hash].js',
-		path: path.join(__dirname,'../dist'),
-		publicPath: '/public'
-	},
-	module:{
-		rules: [
-		  // {
-		  //   enforce: 'pre',
-		  //   test: /.(js|jsx)$/,
-		  //   loader: 'eslint-loader',
-		  //   options: {
-		  //       emitWarning: true,
-		  //       emitError: true,
-		  //       useEslintrc: false,
-		  //       configFile: path.join(__dirname, "../.eslintrc.json")
-		  //   },
-		  //   exclude: [
-		  //     path.resolve(__dirname, '../node_modules')
-		  //   ]
-		  // },
-		  {
-			enforce: 'pre',
-			test: /.(js|jsx)$/,
-			loader: 'eslint-loader',
-			exclude: [
-			  path.resolve(__dirname, '../node_modules')
-			]
-		  },
-		  {
-			test: /.jsx$/,
-			loader: 'babel-loader'
-		  },
-		  {
-			test: /.js$/,
-			loader: 'babel-loader',
-			exclude: [
-			  path.join(__dirname, '../node_modules')
-			]
-		  }
-		]
 	},
 	plugins: [
 	  new HTMLPlugin({
 		template: path.join(__dirname, '../client/template.html')
 	  })
 	]
-}
+})
 
 if (isDev) {
 
@@ -76,9 +39,9 @@ if (isDev) {
 		historyApiFallback: {
 		  index: '/public/index.html'
 		},
-		// proxy: {
-		//   '/api': 'http://localhost:3333'
-		// }
+		proxy: {
+		  '/api': 'http://localhost:3333'
+		}
 	}
 	config.plugins.push(new webpack.HotModuleReplacementPlugin())
 }
