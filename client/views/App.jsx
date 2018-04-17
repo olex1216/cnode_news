@@ -1,22 +1,27 @@
 import React from 'react'
 import {
-  Link,
-} from 'react-router-dom';
-import Routes from '../config/router'
+  withRouter,
+} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-export default class App extends React.Component {
+import Routes from '../config/router'
+import AppBar from './components/app-bar'
+
+class App extends React.Component {
   componentDidMount() {
     //
   }
 
   render() {
     return [
-      <div key="nav">
-        <Link to="/" key="indexpage">首页</Link>
-        <br />
-        <Link to="/detail" key="detailpage">详情页</Link>
-      </div>,
+      <AppBar location={this.props.location} key="app-bar" />,
       <Routes key="routes" />,
     ]
   }
 }
+
+App.propTypes = {
+  location: PropTypes.object.isRequired,
+}
+
+export default withRouter(App)
