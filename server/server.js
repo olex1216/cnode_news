@@ -37,7 +37,7 @@ if (!isDev) {
 
 	app.use('/public',express.static(path.join(__dirname, '../dist')))
 	app.get('*',function (req,res,next) {
-		serverRender(serverEntry, template, req, res).catch(next) 
+		serverRender(serverEntry, template, req, res).catch(next)
 	})
 } else {
 	const devStatic = require('./util/dev-static')

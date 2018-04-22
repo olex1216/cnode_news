@@ -68,16 +68,16 @@ class ButtonAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="fixed">
           <Toolbar>
-            <IconButton color="contrast" aria-label="Menu" onClick={this.goToIndex}>
+            <IconButton color="primary" aria-label="Menu" onClick={this.goToIndex}>
               <HomeIcon />
             </IconButton>
             <Typography type="title" color="inherit" className={classes.flex}>
               JNode
             </Typography>
-            <Button raised color="accent" onClick={this.goToCreate}>
+            <Button raised="true" color="primary" onClick={this.goToCreate}>
               新建话题
             </Button>
-            <Button color="contrast" onClick={this.goToUser}>登录</Button>
+            <Button color="primary" onClick={this.goToUser}>登录</Button>
           </Toolbar>
         </AppBar>
       </div>
