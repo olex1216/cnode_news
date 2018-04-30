@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
-// import {
-//   inject,
-//   observer,
-// } from 'mobx-react'
+import {
+  inject,
+  observer,
+} from 'mobx-react'
 
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
@@ -22,7 +22,11 @@ const styleSheet = {
   },
 }
 
-// @observer
+@inject((stores) => {
+  return {
+    user: stores.appState.user,
+  }
+}) @observer
 class ButtonAppBar extends React.Component {
   static contextTypes = {
     router: PropTypes.object,
@@ -42,14 +46,14 @@ class ButtonAppBar extends React.Component {
   goToUser() {
     const { location } = this.props
     if (location.pathname !== '/user/login') {
-      // if (this.props.user.isLogin) {
-      //   this.context.router.history.push('/user/info')
-      // } else {
-      //   this.context.router.history.push({
-      //     pathname: '/user/login',
-      //     search: `?from=${location.pathname}`,
-      //   })
-      // }
+      if (this.props.user.isLogin) {
+        this.context.router.history.push('/user/info')
+      } else {
+        this.context.router.history.push({
+          pathname: '/user/login',
+          search: `?from=${location.pathname}`,
+        })
+      }
     }
   }
 
@@ -58,26 +62,35 @@ class ButtonAppBar extends React.Component {
   }
 
   goToIndex() {
-    this.context.router.history.push('/')
+    const { location } = this.props
+    if (location.pathname !== '/list') {
+      this.context.router.history.push('/')
+    }
   }
 
   render() {
     const classes = this.props.classes
-    // const user = this.props.user
+    const user = this.props.user
     return (
       <div className={classes.root}>
         <AppBar position="fixed">
           <Toolbar>
-            <IconButton color="primary" aria-label="Menu" onClick={this.goToIndex}>
+            <IconButton color="inherit" aria-label="Menu" onClick={this.goToIndex}>
               <HomeIcon />
             </IconButton>
             <Typography type="title" color="inherit" className={classes.flex}>
-              JNode
+              CNode
             </Typography>
-            <Button raised="true" color="primary" onClick={this.goToCreate}>
-              新建话题
+            {
+              user.isLogin ?
+                <Button raised={'true'} color="inherit" onClick={this.goToCreate}>
+                  新建话题
+                </Button> :
+                null
+            }
+            <Button color="inherit" onClick={this.goToUser}>
+              {user.isLogin ? user.info.loginname : '登录'}
             </Button>
-            <Button color="primary" onClick={this.goToUser}>登录</Button>
           </Toolbar>
         </AppBar>
       </div>
@@ -85,9 +98,9 @@ class ButtonAppBar extends React.Component {
   }
 }
 
-// ButtonAppBar.wrappedComponent.propTypes = {
-//   user: PropTypes.object.isRequired,
-// }
+ButtonAppBar.wrappedComponent.propTypes = {
+  user: PropTypes.object.isRequired,
+}
 
 ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,

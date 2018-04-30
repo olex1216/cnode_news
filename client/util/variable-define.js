@@ -1,10 +1,10 @@
 export const tabs = {
+  all: '全部',
+  dev: '测试',
+  good: '精品',
   share: '分享',
   job: '工作',
   ask: '问答',
-  good: '精品',
-  dev: '测试',
-  all: '全部',
 }
 
 export const topicSchema = {
@@ -19,6 +19,7 @@ export const topicSchema = {
   reply_count: 0,
   visit_count: 0,
   create_at: '',
+  is_collect: '',
   author: {
     loginname: '',
     avatar_url: '',

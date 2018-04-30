@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const baseUrl = process.env.API_BASE || ''
 
-const queryString = (url, json) => {
+const queryString = (url = '', json = {}) => {
   const str = Object.keys(json).reduce((result, key) => {
     result += `${key}=${json[key]}&`
     return result

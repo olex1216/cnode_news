@@ -37,6 +37,7 @@ const createApp = (TheApp) => {
 }
 
 const appState = new AppState(initialState.appState)
+// appState.init(initialState.appState)
 const topicStore = new TopicStore(initialState.topicStore)
 
 const root = document.getElementById('root')
