@@ -65,10 +65,11 @@ export default class TopicStore {
   @observable syncing = false
   @observable tab
 
-  constructor({ syncing = false, topics = [], tab = null, details = [] } = {}) {
+  constructor({ syncing = false, topics = [], tab = null, details = [], createdTopics = [] } = {}) {
     this.syncing = syncing
     this.topics = topics.map(topic => new Topic(createTopic(topic)))
     this.details = details.map(topic => new Topic(createTopic(topic)))
+    this.createdTopics = createdTopics.map(topic => new Topic(createTopic(topic)))
     this.tab = tab
   }
 
