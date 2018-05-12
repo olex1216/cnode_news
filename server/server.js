@@ -43,13 +43,14 @@ if (!isDev) {
 	const devStatic = require('./util/dev-static')
 	devStatic(app)
 }
-
+c
 app.use(function (error, req, res, next) {
   console.log(error)
   res.status(500).send(error)
 })
 
-
-app.listen(3333,function () {
+const host = process.env.HOST || '0.0.0.0'
+const port = process.env.PORT || 3333
+app.listen(host,post,function () {
     console.log('server is listening on 3333')
 })

@@ -6,6 +6,7 @@ const webpackMerge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 
 const isDev = process.env.NODE_ENV === 'development';
+const cdnConfig = require('../app.config').cdn
 
 const config  = webpackMerge(baseConfig,{
 	entry:{
@@ -67,6 +68,7 @@ if (isDev) {
     ]
   }
   config.output.filename = '[name].[chunkhash].js'
+  // config.output.publicPath = cdnConfig.host
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
